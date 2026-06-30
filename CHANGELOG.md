@@ -4,6 +4,14 @@ All notable changes to HoDoKu are documented here.
 
 ---
 
+## [2.3.4] – 2026-06-30
+
+### Changed
+
+- Renamed repository from Hodoku2 to HoDoKu; updated internal project references
+
+---
+
 ## [2.3.2] – 2022-06-26
 
 ### Changed
