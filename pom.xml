@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.hodoku</groupId>
-    <artifactId>hodoku</artifactId>
+    <artifactId>HoDoKu</artifactId>
     <version>2.3.4</version>
     <packaging>jar</packaging>
 
@@ -64,7 +64,7 @@
             </plugin>
 
             <!-- ── 2. Executable JAR ───────────────────────────────────── -->
-            <!--     mvn package  →  target/hodoku-2.3.2.jar               -->
+            <!--     mvn package  →  target/HoDoKu-2.3.2.jar               -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -113,11 +113,11 @@
                                 </opts>
                             </jre>
                             <versionInfo>
-                                <fileVersion>2.3.2.0</fileVersion>
+                                <fileVersion>${project.version}.0</fileVersion>
                                 <txtFileVersion>${project.version}</txtFileVersion>
                                 <fileDescription>${app.name} Sudoku Solver</fileDescription>
                                 <copyright>${app.copyright}</copyright>
-                                <productVersion>2.3.2.0</productVersion>
+                                <productVersion>${project.version}.0</productVersion>
                                 <txtProductVersion>${project.version}</txtProductVersion>
                                 <productName>${app.name}</productName>
                                 <internalName>hodoku</internalName>
@@ -128,63 +128,47 @@
                 </executions>
             </plugin>
 
+            <!-- ── 4. Windows installer (bundles JRE — no Java required) ── -->
+            <!--     mvn package  →  target/installer/HoDoKu-<ver>.exe       -->
+            <!--     Uses jpackage (JDK 14+). Windows prerequisites:          -->
+            <!--       JDK 18+  →  Inno Setup 6                              -->
+            <!--       JDK < 18 →  WiX Toolset 3                             -->
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.5</version>
+                <executions>
+                    <execution>
+                        <id>create-installer</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <name>${app.name}</name>
+                    <appVersion>${project.version}</appVersion>
+                    <vendor>${app.vendor}</vendor>
+                    <copyright>${app.copyright}</copyright>
+                    <destination>${project.build.directory}/installer</destination>
+                    <input>${project.build.directory}</input>
+                    <mainJar>${jar.finalName}.jar</mainJar>
+                    <mainClass>${mainClass}</mainClass>
+                    <icon>${app.icon}</icon>
+                    <javaOptions>
+                        <option>-Xmx256m</option>
+                    </javaOptions>
+                    <!-- Windows installer options -->
+                    <winMenu>true</winMenu>
+                    <winMenuGroup>${app.name}</winMenuGroup>
+                    <winShortcut>false</winShortcut>
+                    <winDirChooser>true</winDirChooser>
+                    <winPerUserInstall>false</winPerUserInstall>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
-
-    <!-- ── Installer profile ─────────────────────────────────────────────── -->
-    <!--                                                                       -->
-    <!--   Uses jpackage (JDK 14+) to produce a self-contained installer       -->
-    <!--   that bundles the JRE — no Java installation required on the target. -->
-    <!--                                                                       -->
-    <!--   Windows prerequisites (one of):                                     -->
-    <!--     - WiX Toolset 3.x  (jpackage type msi or exe on JDK up to 17)    -->
-    <!--     - Inno Setup 6.x   (jpackage type exe on JDK 18+)                -->
-    <!--                                                                       -->
-    <!--   Usage:                                                              -->
-    <!--     mvn package -Pinstaller                                           -->
-    <!--   Output:  target/installer/HoDoKu-2.3.2.exe  (or .msi)             -->
-    <profiles>
-        <profile>
-            <id>installer</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.panteleyev</groupId>
-                        <artifactId>jpackage-maven-plugin</artifactId>
-                        <version>1.6.5</version>
-                        <executions>
-                            <execution>
-                                <id>create-installer</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>jpackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <name>${app.name}</name>
-                            <appVersion>${project.version}</appVersion>
-                            <vendor>${app.vendor}</vendor>
-                            <copyright>${app.copyright}</copyright>
-                            <destination>${project.build.directory}/installer</destination>
-                            <input>${project.build.directory}</input>
-                            <mainJar>${jar.finalName}.jar</mainJar>
-                            <mainClass>${mainClass}</mainClass>
-                            <icon>${app.icon}</icon>
-                            <javaOptions>
-                                <option>-Xmx256m</option>
-                            </javaOptions>
-                            <!-- Windows installer options -->
-                            <winMenu>true</winMenu>
-                            <winMenuGroup>${app.name}</winMenuGroup>
-                            <winShortcut>false</winShortcut>
-                            <winDirChooser>true</winDirChooser>
-                            <winPerUserInstall>false</winPerUserInstall>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

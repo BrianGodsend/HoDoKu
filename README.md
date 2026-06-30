@@ -21,14 +21,15 @@ This is a fork of [Hodoku2](https://github.com/wyzelli/Hodoku2) by [wyzelli](htt
 **All platforms** — run the JAR directly:
 
 ```bash
-java -Xmx256m -jar hodoku-2.3.4.jar
+java -Xmx256m -jar HoDoKu-2.3.4.jar
 ```
 
 ## Building
 
-**Prerequisites:** Java 11+ JDK, Maven 3.8+.
+**Prerequisites:** Java 14+ JDK, Maven 3.8+, and one of:
 
-### Executable JAR + Windows EXE
+- [Inno Setup 6](https://jrsoftware.org/isinfo.php) — for JDK 18+ builds (recommended)
+- [WiX Toolset 3](https://wixtoolset.org/) — for JDK 14–17 builds
 
 ```bash
 mvn package
@@ -36,31 +37,11 @@ mvn package
 
 Outputs:
 
-| File                        | Description                                                  |
-|-----------------------------|--------------------------------------------------------------|
-| `target/hodoku-2.3.4.jar`   | Runnable JAR — `java -jar` on any platform                   |
-| `target/HoDoKu.exe`         | Windows launcher (Launch4J wrapper; requires Java on PATH)   |
-
-### Windows installer (bundles JRE — no Java required on target machine)
-
-```bash
-mvn package -Pinstaller
-```
-
-Output: `target/installer/HoDoKu-2.3.4.exe`
-
-**Windows prerequisites for the installer** (one of):
-
-- [Inno Setup 6](https://jrsoftware.org/isinfo.php) — for JDK 18+ builds (recommended)
-- [WiX Toolset 3](https://wixtoolset.org/) — for JDK 14–17 builds
-
-### All three artifacts at once
-
-```bash
-mvn package -Pinstaller
-```
-
-The `package` phase always produces the JAR and EXE. Adding `-Pinstaller` continues through the `verify` phase to also produce the installer.
+| File                              | Description                                                |
+|-----------------------------------|------------------------------------------------------------|
+| `target/HoDoKu-2.3.4.jar`        | Runnable JAR — `java -jar` on any platform                 |
+| `target/HoDoKu.exe`              | Windows launcher (Launch4J wrapper; requires Java on PATH) |
+| `target/installer/HoDoKu-2.3.4.exe` | Windows installer — bundles JRE, no Java required       |
 
 ## Project structure
 
