@@ -160,8 +160,9 @@
                             <!-- Windows installer options -->
                             <winMenu>true</winMenu>
                             <winMenuGroup>${app.name}</winMenuGroup>
-                            <winShortcut>true</winShortcut>
+                            <winShortcut>false</winShortcut>
                             <winDirChooser>true</winDirChooser>
+                            <winPerUserInstall>false</winPerUserInstall>
                         </configuration>
                     </plugin>
                 </plugins>
