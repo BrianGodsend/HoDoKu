@@ -1,6 +1,6 @@
-# Hodoku2
+# HoDoKu
 
-An updated version of HoDoKu — a Sudoku generator, solver, analyzer, and trainer written in Java/Swing.
+A Sudoku generator, solver, analyzer, and trainer written in Java/Swing.
 
 This is a fork of [Hodoku2](https://github.com/wyzelli/Hodoku2) by [wyzelli](https://github.com/wyzelli), which is a fork of [Hodoku](https://github.com/PseudoFish/Hodoku) by [PseudoFish](https://github.com/PseudoFish), which is a fork of [hodoku](https://github.com/yoki123/hodoku) by [yoki123](https://github.com/yoki123), which is a clone of [HoDoKu](https://hodoku.sourceforge.net/en/index.php) originally created by Bernhard Hobiger (hobiwan), who has since passed away.
 
@@ -21,7 +21,7 @@ This is a fork of [Hodoku2](https://github.com/wyzelli/Hodoku2) by [wyzelli](htt
 **All platforms** — run the JAR directly:
 
 ```bash
-java -Xmx256m -jar hodoku-2.3.2.jar
+java -Xmx256m -jar hodoku-2.3.3.jar
 ```
 
 ## Building
@@ -38,7 +38,7 @@ Outputs:
 
 | File                        | Description                                                  |
 |-----------------------------|--------------------------------------------------------------|
-| `target/hodoku-2.3.2.jar`   | Runnable JAR — `java -jar` on any platform                   |
+| `target/hodoku-2.3.3.jar`   | Runnable JAR — `java -jar` on any platform                   |
 | `target/HoDoKu.exe`         | Windows launcher (Launch4J wrapper; requires Java on PATH)   |
 
 ### Windows installer (bundles JRE — no Java required on target machine)
@@ -47,7 +47,7 @@ Outputs:
 mvn package -Pinstaller
 ```
 
-Output: `target/installer/HoDoKu-2.3.2.exe`
+Output: `target/installer/HoDoKu-2.3.3.exe`
 
 **Windows prerequisites for the installer** (one of):
 

@@ -370,7 +370,7 @@ public class MainFrame extends javax.swing.JFrame implements FlavorListener {
 		} catch (IOException e) {
 			Logger.getLogger(MainFrame.class.getName()).log(Level.WARNING, "Could not load app.properties", e);
 		}
-		VERSION = props.getProperty("app.name", "Hodoku2") + " - v" + props.getProperty("app.version", "unknown");
+		VERSION = props.getProperty("app.name", "HoDoKu") + " - v" + props.getProperty("app.version", "unknown");
 	}
 
 	/**

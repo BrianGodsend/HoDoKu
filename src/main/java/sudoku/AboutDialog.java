@@ -80,7 +80,7 @@ public class AboutDialog extends javax.swing.JDialog {
 
 		versionLabel.setFont(new java.awt.Font("Tahoma", 1, 18));
 		versionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		versionLabel.setText("Hodoku v1.0");
+		versionLabel.setText("HoDoKu v1.0");
 
 		copyrightLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		copyrightLabel.setText(bundle.getString("AboutDialog.copyrightLabel.text"));

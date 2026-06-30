@@ -12,7 +12,7 @@
 
     <name>HoDoKu</name>
     <description>Sudoku helper/solver/generator/trainer for standard Sudoku</description>
-    <url>https://github.com/bsleeth/Hodoku2</url>
+    <url>https://github.com/BrianGodsend/HoDoKu</url>
 
     <licenses>
         <license>
@@ -26,7 +26,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>sudoku.Main</mainClass>
-        <app.name>Hodoku2</app.name>
+        <app.name>HoDoKu</app.name>
         <app.vendor>Bernhard Hobiger</app.vendor>
         <app.copyright>Copyright 2008-2013 Bernhard Hobiger</app.copyright>
         <app.icon>${project.basedir}/src/main/resources/img/hodoku02.ico</app.icon>
