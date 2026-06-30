@@ -120,8 +120,8 @@
     <!--   that bundles the JRE — no Java installation required on the target. -->
     <!--                                                                       -->
     <!--   Windows prerequisites (one of):                                     -->
-    <!--     • WiX Toolset 3.x  (for --type msi or --type exe on JDK ≤ 17)   -->
-    <!--     • Inno Setup 6.x   (for --type exe on JDK 18+)                   -->
+    <!--     - WiX Toolset 3.x  (jpackage type msi or exe on JDK up to 17)    -->
+    <!--     - Inno Setup 6.x   (jpackage type exe on JDK 18+)                -->
     <!--                                                                       -->
     <!--   Usage:                                                              -->
     <!--     mvn package -Pinstaller                                           -->
