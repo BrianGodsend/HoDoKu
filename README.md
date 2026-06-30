@@ -85,4 +85,8 @@ CHANGELOG.md
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for the full version history.
+See [CHANGELOG.md](./CHANGELOG.md) for the full version history.
+
+## Roadmap
+
+See **[TODO.md](./TODO.md)** for the complete and up-to-date list of planned features and tasks.
