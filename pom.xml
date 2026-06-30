@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.hodoku</groupId>
+    <artifactId>hodoku</artifactId>
+    <version>2.3.2</version>
+    <packaging>jar</packaging>
+
+    <name>HoDoKu</name>
+    <description>Sudoku helper/solver/generator/trainer for standard Sudoku</description>
+    <url>https://github.com/bsleeth/Hodoku2</url>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mainClass>sudoku.Main</mainClass>
+        <app.name>HoDoKu</app.name>
+        <app.vendor>Bernhard Hobiger</app.vendor>
+        <app.copyright>Copyright 2008-2013 Bernhard Hobiger</app.copyright>
+        <app.icon>${project.basedir}/src/main/resources/img/hodoku02.ico</app.icon>
+        <jar.finalName>${project.artifactId}-${project.version}</jar.finalName>
+    </properties>
+
+    <!-- No external runtime dependencies — pure Java SE + Swing -->
+    <dependencies/>
+
+    <build>
+        <plugins>
+
+            <!-- ── 1. Compiler ─────────────────────────────────────────── -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+
+            <!-- ── 2. Executable JAR ───────────────────────────────────── -->
+            <!--     mvn package  →  target/hodoku-2.3.2.jar               -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <finalName>${jar.finalName}</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Title>${app.name}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- ── 3. Windows EXE launcher (requires Java on the system) ─ -->
+            <!--     mvn package  →  target/HoDoKu.exe                      -->
+            <!--     Launch4J wraps the JAR in a native Windows executable.  -->
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>create-exe</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>${project.build.directory}/HoDoKu.exe</outfile>
+                            <jar>${project.build.directory}/${jar.finalName}.jar</jar>
+                            <errTitle>${app.name}</errTitle>
+                            <icon>${app.icon}</icon>
+                            <classPath>
+                                <mainClass>${mainClass}</mainClass>
+                            </classPath>
+                            <jre>
+                                <minVersion>11</minVersion>
+                                <opts>
+                                    <opt>-Xmx256m</opt>
+                                </opts>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>2.3.2.0</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>${app.name} Sudoku Solver</fileDescription>
+                                <copyright>${app.copyright}</copyright>
+                                <productVersion>2.3.2.0</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <productName>${app.name}</productName>
+                                <internalName>hodoku</internalName>
+                                <originalFilename>HoDoKu.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- ── Installer profile ─────────────────────────────────────────────── -->
+    <!--                                                                       -->
+    <!--   Uses jpackage (JDK 14+) to produce a self-contained installer       -->
+    <!--   that bundles the JRE — no Java installation required on the target. -->
+    <!--                                                                       -->
+    <!--   Windows prerequisites (one of):                                     -->
+    <!--     • WiX Toolset 3.x  (for --type msi or --type exe on JDK ≤ 17)   -->
+    <!--     • Inno Setup 6.x   (for --type exe on JDK 18+)                   -->
+    <!--                                                                       -->
+    <!--   Usage:                                                              -->
+    <!--     mvn package -Pinstaller                                           -->
+    <!--   Output:  target/installer/HoDoKu-2.3.2.exe  (or .msi)             -->
+    <profiles>
+        <profile>
+            <id>installer</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>1.6.5</version>
+                        <executions>
+                            <execution>
+                                <id>create-installer</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jpackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <name>${app.name}</name>
+                            <appVersion>${project.version}</appVersion>
+                            <vendor>${app.vendor}</vendor>
+                            <copyright>${app.copyright}</copyright>
+                            <destination>${project.build.directory}/installer</destination>
+                            <input>${project.build.directory}</input>
+                            <mainJar>${jar.finalName}.jar</mainJar>
+                            <mainClass>${mainClass}</mainClass>
+                            <icon>${app.icon}</icon>
+                            <javaOptions>
+                                <option>-Xmx256m</option>
+                            </javaOptions>
+                            <!-- Windows installer options -->
+                            <winMenu>true</winMenu>
+                            <winMenuGroup>${app.name}</winMenuGroup>
+                            <winShortcut>true</winShortcut>
+                            <winDirChooser>true</winDirChooser>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

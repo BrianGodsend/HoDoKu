@@ -1,0 +1,14 @@
+# Maven build output
+target/
+
+# IDE project files
+.idea/
+*.iml
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Log files written by HoDoKu at runtime
+*.log
