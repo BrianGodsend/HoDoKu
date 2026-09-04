@@ -304,7 +304,9 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
             }
             
             cellSelection.add(intObj );
-            mainFrame.updateCellSelectionStatus();
+			if (mainFrame != null) {
+				mainFrame.updateCellSelectionStatus();
+			}
 	}
 	
 	public void setActiveCell(int row, int col) {		
@@ -588,9 +590,36 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 			clearDragSelection();
 			
 		} else if (isLeftClick) {
+			boolean isShiftDown = evt.isShiftDown();
 
-			if (!isCtrlDown) {
-				
+			if (isShiftDown && !cellSelection.isEmpty()) {
+
+				// restore classic Shift+Click behavior: expand the selection to the
+				// rectangular region between the current active cell and the cell
+				// just clicked, skipping cells that already have a value set
+				int anchorRow = getActiveRow();
+				int anchorCol = getActiveCol();
+
+				int minRow = Math.min(anchorRow, lastPressedRow);
+				int maxRow = Math.max(anchorRow, lastPressedRow);
+				int minCol = Math.min(anchorCol, lastPressedCol);
+				int maxCol = Math.max(anchorCol, lastPressedCol);
+
+				clearDragSelection();
+				cellSelection.clear();
+
+				for (int r = minRow; r <= maxRow; r++) {
+					for (int c = minCol; c <= maxCol; c++) {
+						if (sudoku.getValue(r, c) == 0) {
+							cellSelection.add(Sudoku2.getIndex(r, c));
+						}
+					}
+				}
+
+				setActiveCell(lastPressedRow, lastPressedCol);
+
+			} else if (!isCtrlDown) {
+
 				updateAutoHighlight(lastPressedRow, lastPressedCol);				
 				setActiveCell(lastPressedRow, lastPressedCol);
 				clearSelection();

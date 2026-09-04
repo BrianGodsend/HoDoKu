@@ -4,6 +4,15 @@ All notable changes to HoDoKu are documented here.
 
 ---
 
+## [2.3.6] – 2026-09-04
+
+### Fixed
+
+- Restored classic Shift+Click behavior: expands the cell selection to the rectangular region between the active cell and the clicked cell, skipping cells that already have a value
+- Guarded against a null `mainFrame` when updating the cell selection status
+
+---
+
 ## [2.3.5] – 2026-06-30
 
 ### Changed
